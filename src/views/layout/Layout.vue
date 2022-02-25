@@ -16,7 +16,7 @@
 			Navbar,
 			AppMain
 		}
-	}
+	};
 </script>
 <style type="text/css">
 	.header-wrapper{

@@ -21,7 +21,7 @@
 				      <el-menu-item index="2-4-3">选项3</el-menu-item>
 				    </el-submenu>
 				  </el-submenu>
-				  <el-menu-item index="3" disabled>消息中心</el-menu-item>
+				  <el-menu-item index="3" >消息中心</el-menu-item>
 				  <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
 				</el-menu>															
 			</div>
@@ -52,7 +52,7 @@
       }			
 		},
 
-	}	
+	};	
 </script>
 <style type="text/css">
 .head-container{
@@ -77,7 +77,7 @@
 	left: auto;
 	width: auto;
 	z-index: 1;
-	height: 60px;
+	height: 54px;
 }
 .userinfo{
 	margin: 8px 24px;
@@ -98,7 +98,6 @@
 }
 .userinfo-right a{
 	font-size: 14px;
-	color: 33px;
 	width: 40px;
 	text-align: center;
 }
@@ -121,5 +120,32 @@
 .el-menu{
 	background-color: transparent !important;
 }
-
+.is-active{
+	font-weight:600;
+}
+.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover,.el-menu--horizontal>.el-submenu .el-submenu__title:hover{
+	background-color:#282828 !important;
+	color:#ffe300 !important;
+}
+.el-menu--horizontal>.el-menu-item{
+	color:#282828 !important;
+}
+.el-menu--horizontal>.el-submenu .el-submenu__title{
+	color:#282828 !important;
+}
+.head-juzhong .el-submenu__icon-arrow{
+	display:none;
+}
+.el-menu--horizontal>.el-menu-item{
+	height:54px !important;
+	line-height:54px !important;
+}
+.el-menu--horizontal>.el-submenu .el-submenu__title{
+		height:54px !important;
+	line-height:54px !important;
+}
+.el-menu-item:focus{
+	background-color:#ffe300 !important;
+	color:#282828 !important;
+}
 </style>

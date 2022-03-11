@@ -47,7 +47,7 @@
 				</div>
 				<div class="second-row-buju">
 					<div class="second-row-container">
-						<div class="huodongimg">
+						<div class="huodongimg fl">
 							<div class="newstitle">
 								<div class="newsbiaoti">学院新闻</div>									
 								<div class="newsmore">
@@ -62,7 +62,10 @@
 												<img :src="item.url" style="width:142px;height:73px;">		
 											</div>
 											<div class="neirongrg">
-												<h3>{{item.biaoti}}</h3>
+												<h3>
+													<a href="#">{{item.biaoti}}</a>
+													<div class="fr">{{item.riqi}}</div>
+												</h3>
 												<p>{{item.neirong}}</p>
 											</div>
 										</div>
@@ -70,11 +73,37 @@
 								</div>		
 							</div>
 						</div>
-						<div class="huodongimg"></div>
+						<div class="huodongimg fr">
+							<div class="newstitle">
+								<div class="newsbiaoti">学院新闻</div>									
+								<div class="newsmore">
+									<i class="el-icon-circle-plus"></i>更多
+								</div>
+							</div>
+							<div class="list-content">
+								<div id="c01" style="position:relative">
+									<div class="neirong-set">
+										<div class="neirong" v-for="(item,index) in listArr" :key="index" >
+											<div class="neironglf">
+												<img :src="item.url" style="width:142px;height:73px;">		
+											</div>
+											<div class="neirongrg">
+												<h3>
+													<a href="#">{{item.biaoti}}</a>
+													<div class="fr">{{item.riqi}}</div>
+												</h3>
+												<p>{{item.neirong}}</p>
+											</div>
+										</div>
+									</div>									
+								</div>		
+							</div>
+						</div>
 					</div>					
 				</div>
 			</div>						
-		</div>											
+		</div>
+											
 	</div>		
 </template>
 <script type="text/javascript">
@@ -108,13 +137,41 @@
 	};				
 </script>
 <style type="text/css">
+.imgone p{
+	line-height: 30px;
+	color: #666;
+	text-align: center;
+	font-size: 14px;
+}
+.imgone img{
+	width: 100px;
+}
+.imgone{
+	width: 160px;
+	float: left;
+	text-align: center;
+}
+
+.xinti{
+	line-height: 30px;
+	height: auto;
+	font-size: 16px;
+	color:#666;
+}
+.fr{
+	float: right;
+}
+.fl{
+	float: left;
+}
 .index-container{
 	position: relative;
 	width: 100%;
+	background: #EFF3F5;
 }	
-.lunbo-container{
+.index-container .lunbo-container{
 	margin:0 auto;
-	max-width:1130px;
+	width:1200px;
 	padding:20px 0 10px 0;
 	height: 330px;
 }
@@ -130,14 +187,13 @@
 }
 .list-container{
 	margin:0 auto;
-	max-width:1130px;
-	height:800px;
+	width:1160px;
+	height:auto;
 	background-color: #fff;
+	padding:20px 20px 0px 20px;
+	box-sizing: content-box;
 }
-.first-row-buju,.second-row-buju{
-	height: auto;
-	padding:20px 20px 0px 20px;;
-}
+
 .first-row-container,.second-row-container{
 	border-bottom: 1px solid #c9c9c9;
 	height: 330px;
@@ -145,7 +201,7 @@
 	box-sizing: content-box;
 }
 .list-buju{
-	background-color: #ebebed	;
+	background-color: #EFF3F5	;
 	margin-top: 15px;
 	padding-top: 5px;
 }
@@ -174,7 +230,7 @@
 }
 .huodonggonggao{
 	float: right;
-	width: 520px;
+	width: 560px;
 	height: 330px;
 }
 .newslist{
@@ -230,6 +286,12 @@ ul{
 	color:rgb(153,153,153);
 
 }
+.neirongrg h3 a{
+	color:#0069b7;
+	float: left;
+	text-align: center;
+	font-size: 14px;
+}
 h3,p{
 		padding:0;
 	margin:0;
@@ -238,5 +300,6 @@ h3,p{
 	line-height: 20px;
 	padding-top: 5px;
 	font-size: 12px;
+	clear: both;
 }
 </style>

@@ -1,0 +1,23 @@
+{
+  "id": "3214693",
+  "name": "社团管理",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "201556",
+      "name": "查看",
+      "font_class": "chakan",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "200967",
+      "name": "3.1点赞",
+      "font_class": "31dianzan",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

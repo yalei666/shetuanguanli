@@ -7,33 +7,37 @@
 				</a>																										
 			</div>				
 			<div class="nav">
-				<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-				  <el-menu-item index="1">处理中心</el-menu-item>
-				  <el-submenu index="2">
-				    <template slot="title">我的工作台</template>
-				    <el-menu-item index="2-1">选项1</el-menu-item>
-				    <el-menu-item index="2-2">选项2</el-menu-item>
-				    <el-menu-item index="2-3">选项3</el-menu-item>
-				    <el-submenu index="2-4">
-				      <template slot="title">选项4</template>
-				      <el-menu-item index="2-4-1">选项1</el-menu-item>
-				      <el-menu-item index="2-4-2">选项2</el-menu-item>
-				      <el-menu-item index="2-4-3">选项3</el-menu-item>
-				    </el-submenu>
-				  </el-submenu>
-				  <el-menu-item index="3" >消息中心</el-menu-item>
-				  <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+				<el-menu 
+					:default-active="activeIndex" 
+					class="el-menu-demo" 
+					mode="horizontal" 
+					@select="handleSelect"
+					background-color="#ffe300"
+					text-color="#282828">
+				  <el-menu-item index="/index/index">
+				  	<router-link to="/index/index">
+				  		 社联首页
+				  	</router-link>				  
+					</el-menu-item>
+				  <el-menu-item index="/faxian/shetuancardyemian">
+				  	<router-link to="/faxian/shetuancardyemian">
+				  		发现社团
+				  	</router-link>
+				  </el-menu-item>
+				  <el-menu-item index="/faxian/huodongcardyemian">
+				  	<router-link to="/faxian/huodongcardyemian">
+				  		 发现活动
+				  	</router-link>	
+				  </el-menu-item>
 				</el-menu>															
 			</div>
 			<div class="userinfo">
 				<div class="userinfo-left"></div>
-				<div class="userinfo-mid">
-					
-				</div>
+				<div class="userinfo-mid"></div>
 				<div class="userinfo-right">
-					<a href="">登录</a>	
+					<router-link to="/login">登录</router-link>	
 					<i>|</i>	
-					<a href="">注册</a>								
+					<router-link to="/register">注册</router-link>								
 				</div>					
 			</div>
 		</div>			
@@ -43,7 +47,7 @@
 	export default{
 		data(){
 			return{
-				activeIndex: '1',
+				activeIndex:null,
 			}
 		},
 		methods:{
@@ -51,7 +55,9 @@
         console.log(key, keyPath);
       }			
 		},
-
+		mounted(){
+			this.activeIndex = this.$route.path
+		}		
 	};	
 </script>
 <style type="text/css">
@@ -123,29 +129,14 @@
 .is-active{
 	font-weight:600;
 }
-.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover,.el-menu--horizontal>.el-submenu .el-submenu__title:hover{
-	background-color:#282828 !important;
-	color:#ffe300 !important;
+.el-menu--horizontal>.el-menu-item,.el-menu--horizontal>.el-submenu .el-submenu__title{
+	height: 54px !important;
+	line-height: 54px !important;
+}
+.el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
+	background-color: #ffe300 !important;
 }
 .el-menu--horizontal>.el-menu-item{
-	color:#282828 !important;
-}
-.el-menu--horizontal>.el-submenu .el-submenu__title{
-	color:#282828 !important;
-}
-.head-juzhong .el-submenu__icon-arrow{
-	display:none;
-}
-.el-menu--horizontal>.el-menu-item{
-	height:54px !important;
-	line-height:54px !important;
-}
-.el-menu--horizontal>.el-submenu .el-submenu__title{
-		height:54px !important;
-	line-height:54px !important;
-}
-.el-menu-item:focus{
-	background-color:#ffe300 !important;
-	color:#282828 !important;
+	border-bottom: 0px  !important;
 }
 </style>

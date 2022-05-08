@@ -364,7 +364,7 @@
 	.p-relative{
 		position: relative;
 	}
-	.avatar-container-30{
+	#shetuanxiangqing-buju .avatar-container-30{
 		width: 30px;
 		position: relative;
 	}

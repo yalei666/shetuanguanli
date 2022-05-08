@@ -8,9 +8,8 @@
       </div>        
       <div class="card-info">
         <p class="card-info-title">
-          <router-link to="#" class="title-content">
             {{item.name}}
-          </router-link>  
+        
         </p>
         <p class="card-info-type">
             {{item.shuyu}}

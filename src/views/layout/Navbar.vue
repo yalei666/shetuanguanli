@@ -34,7 +34,34 @@
 			<div class="userinfo">
 				<div class="userinfo-left"></div>
 				<div class="userinfo-mid"></div>
-				<div class="userinfo-right">
+				<div 
+					class="touxiangquyu"
+					@mouseover="touxiangvisble = true"
+					@mouseleave="touxiangvisble = false">
+					<ul 
+						class="login"
+						v-bind:class="{'hide':!uid}">
+						<li class="user">
+							<div class="avatar-container-30">
+								<a href="#" class="user-list">
+									<img src="../../assets/img/touxiang.jpg">
+								</a>
+							</div>				
+						</li>
+					</ul>
+					<div class="touxiangflow" v-show="touxiangvisble">
+						<div class="touxiangbuju">
+							<div class="touxiangcontent">
+								<ul>
+									<li @click="tuichudenglv">退出登录</li>
+								</ul>
+							</div>
+						</div>						
+					</div>					
+				</div>
+				<div 
+					class="userinfo-right"
+					v-bind:class="{'hide':uid}">
 					<router-link to="/login">登录</router-link>	
 					<i>|</i>	
 					<router-link to="/register">注册</router-link>								
@@ -44,23 +71,83 @@
 	</div>
 </template>
 <script type="text/javascript">
+	import { mapGetters } from 'vuex'
 	export default{
 		data(){
 			return{
 				activeIndex:null,
+				touxiangvisble:false
 			}
+		},
+		computed:{
+			...mapGetters(
+				{uid:'uid'}
+			)
 		},
 		methods:{
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+      },
+      tuichudenglv(){
+      		var that = this;
+          this.$store.dispatch('LogOut').then(() => {
+            location.reload();// 为了重新实例化vue-router对象 避免bug
+            that.$message('已退出登录');
+          });      	
       }			
 		},
 		mounted(){
 			this.activeIndex = this.$route.path
+			console.log(this.uid);
 		}		
 	};	
 </script>
 <style type="text/css">
+.touxiangcontent ul li{
+	cursor: pointer;
+}
+.touxiangbuju{
+	padding: 20px 30px;
+}
+.touxiangflow{
+	position: absolute;
+	left: 0;
+	top: 55px;
+	background-color: #fff;
+	z-index: 3;
+	border-radius: 5px;
+}
+.touxiangquyu{
+	position: relative;
+	display: inline-block;
+}
+.hide{
+	display: none !important;
+}
+.user a.user-list img{
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+	border-radius: 50%;
+	display: block;
+}
+.login .user .user-list{
+	display: block;
+}
+.login .user .avatar-container-30{
+	padding: 13px 20px;
+}
+ul li {
+	list-style-type: none;
+}
+.login>li{
+	float: left;
+	cursor: pointer;
+	position: relative;
+}
+.login{
+	float: left;	
+}
 .head-container{
 	position: relative;
 	display: flex;
@@ -86,13 +173,13 @@
 	height: 54px;
 }
 .userinfo{
-	margin: 8px 24px;
 	display: flex;
 	cursor: default;
 	align-items: center;
 	padding-left: 32px;
 	white-space: nowrap;
 	font-size: 14px;
+	position: relative;
 }
 .userinfo-mid{
 	margin-right: 20px;
@@ -139,4 +226,5 @@
 .el-menu--horizontal>.el-menu-item{
 	border-bottom: 0px  !important;
 }
+
 </style>

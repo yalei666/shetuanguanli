@@ -19,18 +19,23 @@
 				<div id="form">
 					<div class="retrieve-pass-box z-p-covers">
 						<div class="retrie-center" id="inputparent">
-							<el-form ref="xuehaoform" :model="xuehaoform" label-width="85px">
-								<el-form-item label="学号">
-									<el-input v-model="xuehaoform.xuehao"></el-input>	
+							<el-form 
+								ref="xuehaoform" 
+								:model="xuehaoformdata" 
+								:rules="resultrules"
+								label-width="85px">
+								<el-form-item label="学号" prop="xuehao">
+									<el-input v-model.number="xuehaoformdata.xuehao"></el-input>	
 								</el-form-item>
-								<el-form-item label="密码">
-									<el-input v-model="xuehaoform.password" type="password"></el-input>	
+								<el-form-item label="密码" prop="password">
+									<el-input v-model="xuehaoformdata.password" type="password">
+									</el-input>	
 								</el-form-item>
-								<el-form-item label="确认密码">
-									<el-input v-model="xuehaoform.conpwd" type="password"></el-input>	
+								<el-form-item label="确认密码" prop="conpwd">
+									<el-input v-model="xuehaoformdata.conpwd" type="password"></el-input>	
 								</el-form-item>																
 							</el-form>
-							<el-button plain>注册</el-button>					
+							<el-button plain @click="submitForm('xuehaoform')">注册</el-button>					
 						</div>		
 					</div>
 				</div>
@@ -39,19 +44,107 @@
 	</div>	
 </template>
 <script type="text/javascript">
+	import {global} from '../../global/global';
+	import {api} from '../../global/api';
 	export default{
 		data(){
+			const checkage      = (rule, value, callback) => {
+				if(!value){
+					return callback(new Error('学号不能为空'));
+				}
+				setTimeout(()=>{
+          if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字值'));
+          } else {
+            if (String(value).length != 12) {
+              callback(new Error('必须输入12位数字'));
+            } else {
+              callback();
+            }
+          }					
+				},1000)
+			};
+      const validatePass  = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.xuehaoformdata.conpwd !== '') {
+            this.$refs.xuehaoform.validateField('conpwd');
+          }
+          callback();
+        }
+      };	
+      const validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.xuehaoformdata.password){
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }      	
+      } 		
 			return{
-				xuehaoform:{
+				xuehaoformdata:{
 					xuehao:'',
 					password:'',
-					conpwd:''				}
+					conpwd:''				
+				},
+				resultrules:{
+					xuehao:[
+						{trigger: 'blur', validator: checkage }						
+					],
+					conpwd:[
+						{trigger: 'blur', validator: validatePass2 }	
+					],
+					password:[
+						{trigger: 'blur', validator: validatePass }	
+					],										
+				}
 			}
 		},
-
+		methods:{
+			submitForm(formname){
+				var  that = this;
+				this.$refs[formname].validate((valid)=>{
+          if (valid) {
+            const data = {
+              xuehao:       this.xuehaoformdata.xuehao,
+              password:     this.xuehaoformdata.password,
+             };          	
+						global.post(api.zhuce,data,function(res){
+							if (res.data.resultCode == 1) {
+				        that.$message({
+				          message: '恭喜你，注册成功,请完善个人信息',
+				          type: 'success',
+				        }); 
+								that.$store.dispatch('LoginByAccount',data).then(()=>{
+				          that.$router.push({ path: '/wanshanxinxi' });					
+								}).catch(err=>{
+									console.log('oo',err);
+								})		
+							}
+						},function(rej){
+							console.log(rej);
+						})								            
+          } else {
+		        this.$message({
+		          message: '请重新输入注册信息',
+		          type: 'error',
+		          duration:0,
+		          showClose:true
+		        });        		  	
+          }							
+				})
+			}
+		}
 	};
 </script>
 <style type="text/css">
+	.el-button.is-plain:hover{
+		background:#ffe300 !important;
+		border-color:#ffe300 !important;
+		color: black !important;
+	}
 	.retrie-center .el-form-item__label{
 		text-align: justify;
 		text-align-last: justify;

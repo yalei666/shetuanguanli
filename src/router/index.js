@@ -6,6 +6,7 @@ import sheTuanCardYeMian from '../views/faxianshetuan/faxianshetuan';
 import sheHuoDongYeMian from '../views/faxianhuodong/faxianhuodong';
 import Login from '../views/login/login';
 import Register from '../views/register/register';
+import Wanshanxinxi from '../views/wanshanxinxi/wanshanxinxi';
 import shetuanxiangqing from '../components/shetuanxiangqing/shetuanxiangqing';
 
 Vue.use(VueRouter)
@@ -13,6 +14,7 @@ Vue.use(VueRouter)
 const routes = [
   {path:'/login',component:Login,hidden: true},  
   {path:'/register',component:Register,hidden: true},  
+  {path:'/wanshanxinxi',component:Wanshanxinxi,hidden: true},  
   {
     path: '/',
     //component: Layout,

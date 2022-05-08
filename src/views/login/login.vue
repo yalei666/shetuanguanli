@@ -21,14 +21,14 @@
 									<el-input v-model="xuehaoform.password" type="password"></el-input>	
 								</el-form-item>													
 							</el-form>
-							<el-button plain style="margin-bottom:20px">登陆</el-button>				
+							<el-button plain style="margin-bottom:20px" @click="handleLogin">登陆</el-button>				
 							<div class="auto-login">
 								<div class="login-links">
 									<router-link to="">
 										忘记密码
 									</router-link>
 									&nbsp;|&nbsp;
-									<router-link to="">
+									<router-link to="/register">
 										注册
 									</router-link>	
 								</div>		
@@ -42,20 +42,35 @@
 	</div>	
 </template>
 <script type="text/javascript">
+
 	export default{
 		data(){
 			return{
 				xuehaoform:{
 					xuehao:'',
-					password:'',
-					conpwd:''				
+					password:'',			
 				}
 			}
 		},
-
+		methods:{
+			handleLogin(){
+				this.$store.dispatch('LoginByAccount',this.xuehaoform).then(()=>{
+          			console.log('登陆成功即将跳转--------')
+          			this.$router.push({ path: '/' });					
+				}).catch(err=>{
+					console.log('oo',err);
+				})
+			}
+		}
 	};
 </script>
 <style type="text/css">
+
+	.el-button.is-plain:hover{
+		background:#ffe300 !important;
+		border-color:#ffe300 !important;
+		color: black !important;
+	}
 	.login-links{
 		color: #999999;
 		float: right;

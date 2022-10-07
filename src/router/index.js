@@ -8,6 +8,9 @@ import Login from '../views/login/login';
 import Register from '../views/register/register';
 import Wanshanxinxi from '../views/wanshanxinxi/wanshanxinxi';
 import shetuanxiangqing from '../components/shetuanxiangqing/shetuanxiangqing';
+import gerenzhongxin from '../views/gerenzhongxin/gerenzhongxin';
+import myshetuanapply from '../views/myshetuanapply/myshetuanapply';
+
 
 Vue.use(VueRouter)
 
@@ -44,11 +47,29 @@ const routes = [
     hidden: true,       
   },
   {
-    path: '/shetuanxiangqing/:shetuanname',
+    path: '/shetuanxiangqing/:shetuanid/:shetuanname',
     component: Layout,
     redirect: 'noredirect',      
     children:[
       {path: '', component: shetuanxiangqing, name: '社团详情'}
+    ],
+    hidden: true, 
+  },
+  {
+    path: '/gerenzhongxin',
+    component: Layout,
+    redirect: 'noredirect',
+    name: '',      
+    children:[
+      {
+        path: 'check', 
+        component: gerenzhongxin, 
+        name: '个人中心',
+        children:[
+          {path: 'myshetuanapply', component: myshetuanapply, name: '我的社团申请'}            
+          
+        ]
+      },
     ],
     hidden: true, 
   }     

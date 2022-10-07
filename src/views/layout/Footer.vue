@@ -37,6 +37,7 @@
 	background:#282828;
 	width: 100%;
 	min-width: 1200px;
+	margin-top: 20px;
 }
 .foot-container{
 	height: 140px;

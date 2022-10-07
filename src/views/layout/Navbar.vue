@@ -4,7 +4,7 @@
 			<div class="logo">
 				<a class="head-logo" href="">
 					<img class="head-logo-image" src="../../assets/img/shelian.png" alt="shetuan logo">
-				</a>																										
+				</a>		
 			</div>				
 			<div class="nav">
 				<el-menu 
@@ -29,6 +29,11 @@
 				  		 发现活动
 				  	</router-link>	
 				  </el-menu-item>
+				  <el-menu-item index="/gerenzhongxin/check">
+				  	<router-link to="/gerenzhongxin/check">
+				  		 个人中心
+				  	</router-link>	
+				  </el-menu-item>				  
 				</el-menu>															
 			</div>
 			<div class="userinfo">
@@ -44,7 +49,7 @@
 						<li class="user">
 							<div class="avatar-container-30">
 								<a href="#" class="user-list">
-									<img src="../../assets/img/touxiang.jpg">
+									<img :src="touxiangdizhi">
 								</a>
 							</div>				
 						</li>
@@ -76,29 +81,36 @@
 		data(){
 			return{
 				activeIndex:null,
-				touxiangvisble:false
+				touxiangvisble:false,
+				touxiangdizhi:require('../../assets/img/touxiang.jpg'),
 			}
 		},
 		computed:{
 			...mapGetters(
-				{uid:'uid'}
-			)
+				{uid:'uid'},
+			),
+			...mapGetters(
+				{userInfo:'userInfo'}
+			)			
 		},
 		methods:{
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+      handleSelect (key, keyPath) {
+        
       },
-      tuichudenglv(){
+      tuichudenglv () {
       		var that = this;
           this.$store.dispatch('LogOut').then(() => {
             location.reload();// 为了重新实例化vue-router对象 避免bug
             that.$message('已退出登录');
           });      	
-      }			
+      },
+
 		},
 		mounted(){
-			this.activeIndex = this.$route.path
-			console.log(this.uid);
+			this.activeIndex   = this.$route.path;
+			if(this.userInfo){
+				this.touxiangdizhi = this.userInfo.touxiangpath;	
+			}
 		}		
 	};	
 </script>

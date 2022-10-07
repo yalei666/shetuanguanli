@@ -1,59 +1,33 @@
 <template>
 	<div id="cardyemain-buju">
-		<div class="cardyemain-container">
-			<div class="lunbo-buju">
-				<div class="lunbo-container">
-				  <el-carousel  direction="horizontal" :autoplay="true" >
-				    <el-carousel-item v-for="(item,index) in imgurlArr" :key="index">
-				    	<img :src="item.url">
-				    </el-carousel-item>
-				  </el-carousel>	
-				</div>					
-			</div>
-			<div class="shaixuan-buju">
-				<div class="shaixuan-container">
-					<el-button type="primary" round>主要按钮</el-button>
-					<el-button type="primary" round>主要按钮</el-button>
-					<el-button type="primary" round>主要按钮</el-button>
-					<el-button type="primary" round>主要按钮</el-button>
-				</div>
-			</div>
-			<div class="card-buju">
-				<div class="card-container">
-					<card :datalist="datalistarr"></card>	
-				</div>
-			</div>
-			<div class="fenye-buju">
-				<div class="fenye-container">
-					<el-pagination
-					  background
-					  layout="prev, pager, next"
-					  :total="1000">
-					</el-pagination>					
-				</div>	
+		<div class="card-buju">
+			<div class="card-container">
+				<card :datalist="listData"></card>	
 			</div>
 		</div>
 	</div>
 </template>
 <script type="text/javascript">
-	import card  from '../card/card.vue' 	
+	import card  from '../card/card.vue' 
+	import {global} from '../../global/global';
+	import {api} from '../../global/api';		
 	export default{
 		components:{card},
-		props:['datalistarr'],
+		props:['zizujianlist'],
 		data(){
 			return{
-				imgurlArr:[
-					{ url: require('./../../assets/img/lunbo1.jpg') },
-        	{ url: require('./../../assets/img/lunbo2.jpg') },
-					{ url: require('./../../assets/img/lunbo1.jpg') },
-        	{ url: require('./../../assets/img/lunbo2.jpg') },        	
-        ],				
-
+        		listData:[],    						
 			}
 		},
-		methods:{
-
-		}
+		methods:{						
+		},
+		mounted(){
+		},
+		watch:{
+			zizujianlist(newval){
+				this.listData = newval
+			}			
+		}		
 	};
 </script>
 <style type="text/css">

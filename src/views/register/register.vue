@@ -35,7 +35,7 @@
 									<el-input v-model="xuehaoformdata.conpwd" type="password"></el-input>	
 								</el-form-item>																
 							</el-form>
-							<el-button plain @click="submitForm('xuehaoform')">注册</el-button>					
+							<el-button plain @click="submitForm('xuehaoform')" :loading="anniuload">注册</el-button>
 						</div>		
 					</div>
 				</div>
@@ -87,7 +87,7 @@
 				xuehaoformdata:{
 					xuehao:'',
 					password:'',
-					conpwd:''				
+					conpwd:'',				
 				},
 				resultrules:{
 					xuehao:[
@@ -99,20 +99,24 @@
 					password:[
 						{trigger: 'blur', validator: validatePass }	
 					],										
-				}
+				},
+				anniuload:false
 			}
 		},
 		methods:{
 			submitForm(formname){
+				this.anniuload = true;
 				var  that = this;
 				this.$refs[formname].validate((valid)=>{
           if (valid) {
             const data = {
               xuehao:       this.xuehaoformdata.xuehao,
               password:     this.xuehaoformdata.password,
+              userrole:     'student'
              };          	
 						global.post(api.zhuce,data,function(res){
 							if (res.data.resultCode == 1) {
+								that.anniuload = false;
 				        that.$message({
 				          message: '恭喜你，注册成功,请完善个人信息',
 				          type: 'success',

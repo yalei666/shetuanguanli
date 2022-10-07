@@ -2,14 +2,13 @@
   <div class="card">
     <div class="card-box" v-for="(item,index) in datalist">
       <div class="card-img">
-        <router-link :to="item.url" class="card-img-hover">
-           <img :src="item.imgurl">
+        <router-link :to="/shetuanxiangqing/+item.id+'/'+item.name" class="card-img-hover">
+           <img :src="item.touxiangdizhi">
         </router-link>  
       </div>        
       <div class="card-info">
         <p class="card-info-title">
             {{item.name}}
-        
         </p>
         <p class="card-info-type">
             {{item.shuyu}}
@@ -40,7 +39,6 @@
 		methods:{
 		},
     mounted(){
-      console.log(this.shetuanlist);
     }
 	};
 </script>
@@ -65,14 +63,10 @@
 		position: relative;
 		background-color: #fff;
 		border-radius: 4px;
-		margin:0 35px 20px 0;
+		margin:0 44px 20px 0;
+    width: 17%;
 	}
-	@media screen and (max-width: 1600px){
-		.card-box .card-img, .card-box .card-img a img{
-			width:210px;
-			height:158px;
-		}		
-	}
+
 
   .card-box .card-img{
  		position: relative;
@@ -87,6 +81,7 @@
   	border-radius: 4px 4px 0 0;
   	transition: .1s linear;
   	display: block;
+    width: 100%;
   }
   .card-box .card-info{
   	border-bottom:1px solid #eee;

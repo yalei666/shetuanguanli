@@ -1,4 +1,4 @@
-<template>
+ <template>
 	<div id="shetuanxiangqing-buju">
 		<div class="shetuanxiangqing-container">
 			<div class="shetuandetails-wrap border-bottom border-top">
@@ -45,7 +45,7 @@
 								</span>
 							</p>
 							<div class="btn-area flex between">
-								<el-button type="primary">加入社团</el-button>	
+								<el-button type="primary" @click="joinParty">加入社团</el-button>	
 								<el-button>
 									<span class="iconfont icon-31dianzan see"></span>
 									点赞
@@ -104,36 +104,130 @@
 						</span>
 					</div>
 					<div class="js-project-focus-btn ml-20">
-						<el-button class="buttonhover" type="primary">加入</el-button>		
+						<el-button class="buttonhover" type="primary" @click="joinParty">加入</el-button>		
 					</div>			
 				</div>		
 			</div>				
 		</div>
+		<el-dialog :visible.sync="applydialogVisible">
+			<el-form :model="applyForm" ref="applyform" label-position="top" label-width="100px">
+			    <el-form-item label="选择部门" >
+			    <el-select v-model="applyForm.joinsectionid" placeholder="请选择" @focus="joinParty">
+				    <el-option
+				      v-for="item in sectionOptions"
+				      :key="item.id"
+				      :label="item.name"
+				      :value="item.id">
+				    </el-option>
+			    </el-select>		    				      
+			    </el-form-item>
+			    <el-form-item label="简单介绍自己" >
+			      <el-input v-model="applyForm.applytext" autocomplete="off" type="textarea" :rows="3"></el-input>
+			    </el-form-item>			    
+			</el-form>	
+			<div slot="footer" class="dialog-footer">
+			    <el-button @click="applydialogVisible = false">取 消</el-button>
+			    <el-button type="primary" @click="handleUpload">确 定</el-button>
+			</div>					
+		</el-dialog>		
 	</div>	
 </template>
 <script type="text/javascript">
+	import {global} from '../../global/global';
+	import {api} from '../../global/api';	
+	import {mapGetters} from 'vuex'
 	export default{
 		data(){
 			return{
 				dingbushow:false,
+				applydialogVisible:false,
+				applyForm:{
+					joinsectionid:null,
+					applytext:null,
+				},
+				sectionOptions:null,
+
 			}
 		},
 		mounted(){
 			window.addEventListener('scroll', this.handleScroll)
+			console.log(this.$route.params.shetuanname)
 		},
 		methods:{
 			handleScroll(){
-				console.log(document.documentElement.scrollTop)
 				if(document.documentElement.scrollTop>=200){
 					this.dingbushow  = true;
 				}else{
 					this.dingbushow  = false;
 				}
-			}
-		},		
+			},
+			joinParty(){
+				var that = this 
+				this.applydialogVisible = true
+				global.get(api.getSectionList,{id:this.$route.params.shetuanid},function(res){
+					var data = res.data
+					if(data.resultCode == 1){
+						that.sectionOptions = data.resultData		
+					}
+					 
+				})
+			},
+			handleUpload(){
+				var that = this 
+				this.applyForm.applystudentid 	 = this.userInfo.id
+				this.applyForm.applystudentname  = this.userInfo.realname
+				this.applyForm.applystudentclass = this.userInfo.userclass
+				this.applyForm.joinpartyid   	 = this.$route.params.shetuanid,
+				this.applyForm.joinpartyname 	 = this.$route.params.shetuanname,		
+				this.applyForm.applytime 	     = this.getNowTime(),		
+				global.post(api.applyjoinparty,this.applyForm,function(res){
+					var data =  res.data 
+					if(data.resultCode ==1){
+						that.$message({
+							type:'success',
+							message: data.resultMsg,
+							duration:5000
+						})
+						that.applydialogVisible = false
+						that.applyForm = {
+							joinsectionid:null,
+							joinsectionname:null,
+							joinpartyid:null,
+							joinpartyname:null,
+							applytext:null
+						}						
+					}		
+				})								
+			},
+			getNowTime() {
+                var date = new Date();
+                var year = date.getFullYear(),
+                    month = date.getMonth() + 1,
+                    day = date.getDate(),
+                    hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+                    minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+                    second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+                month >= 1 && month <= 9 ? (month = "0" + month) : "";
+                day >= 0 && day <= 9 ? (day = "0" + day) : "";
+                var timer = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+                /* console.log(timer); */
+                return timer;
+            }			
+		},
+		computed:{
+			...mapGetters(
+				{userInfo:'userInfo'}
+			)			
+		},				
 	};
 </script>
 <style type="text/css">
+	.el-cascader .el-input__inner{
+		width: 100% !important;
+	}
+	.el-textarea{
+		width: 80% !important;
+	}
 	.shetuandetails-wrap{
 		background-color: #fff;
 	}
@@ -161,7 +255,7 @@
 	.right{
 		float: right;
 	}
-	@media screen and (max-width: 1600px){
+	
 		.shetuandetails-box-wrap{
 			width: 1130px;
 			margin: 0 auto;
@@ -169,7 +263,7 @@
 		.left-details{
 			width: 779px;
 		}	
-	}
+	
 	.details-contitle-box{
 		padding: 13px 30px 20px 0;
 	}
@@ -334,12 +428,12 @@
 		transition: height linear .2s;
 		box-sizing: border-box;
 	}
-	@media screen and (max-width: 1600px){
-		.follow-box{
-			width: 1130px;
-			margin: 0 auto;
-		}
+	
+	.follow-box{
+		width: 1130px;
+		margin: 0 auto;
 	}
+	
 	.follow-box{
 		height: 56px;
 	}	

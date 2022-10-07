@@ -32,10 +32,9 @@
 									  accept="image/png,image/gif,image/jpg,image/jpeg"
 									  :on-change="handlefilechange"
 									  :auto-upload="false"
-									  :limit="1"
 									  >
 									  <div class="opacity-layer" :class="{hide:xianshi}">修改头像</div>
-									  <img src="../../assets/img/touxiang.jpg" class="avatar" @mouseover="xianshi = false" @mouseout="xianshi = true">
+									  <img :src="imageUrl" class="avatar" @mouseover="xianshi = false" @mouseout="xianshi = true">
 									</el-upload>									
 								</el-form-item>
 								<el-form-item label="真实姓名">
@@ -49,7 +48,7 @@
 							  </el-cascader>
 								</el-form-item>																
 							</el-form>
-							<el-button plain @click="handleupload">确定</el-button>					
+							<el-button plain @click="handleupload">确定</el-button>
 						</div>		
 					</div>
 				</div>
@@ -60,6 +59,7 @@
 <script type="text/javascript">
 	import {global} from '../../global/global';
 	import {api} from '../../global/api';	
+	import { mapGetters } from 'vuex'
 	export default{
 		data(){
 			return{
@@ -67,7 +67,7 @@
 					xingming:'',
 					banji:''				
 				},
-				options: [ {
+				options: [{
 				          value: 'zujian',
 				          label: '组件',
 				          children: [{
@@ -233,19 +233,47 @@
 				          }]
 				}],
 				xianshi:true,
-				formdata:new FormData()				
+				formdata:new FormData(),
+				imageUrl:require('../../assets/img/touxiang.jpg')				
 			}
+		},
+		computed:{
+			...mapGetters(
+				{uid:'uid'}
+			)			
 		},
 		methods:{
 			handleupload(){
+				var that = this;
 				this.formdata.append('xingming',this.xuehaoform.xingming);
 				this.formdata.append('banji',this.xuehaoform.banji);
-				global.post(api.wanshanxinxi,this.formdata,function(res){				
+				this.formdata.append('uid',this.uid);
+				this.$refs['xuehaoform'].resetFields();
+				global.post(api.wanshanxinxi,this.formdata,function(res){	
+					if(res.data.resultCode == 1){
+						that.$store.dispatch('LogOut').then(()=>{
+							location.reload();	
+						})
+					}else{
+						that.$message({
+              message: res.data.resultMsg,
+              type: 'error'							
+						})						
+					}					
 				},function(rej){
+					console.log(rej);
 				});
 			},
 			handlefilechange(file,filelist){
 				this.formdata.append('file',file.raw);
+				var _this  = this;
+				var event  = event || window.event;
+				var file   = event.target.files[0];
+				var reader = new FileReader();
+				reader.onload = function(e){
+					_this.imageUrl = e.target.result
+				}
+				reader.readAsDataURL(file)
 			}
 		}
 	};
@@ -281,7 +309,6 @@
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
   }
-
   .avatar {
     width: 108px;
     height: 108px;
@@ -297,7 +324,6 @@
 		padding:0 20px 0 5px;
 		background-color: #f4f4f4;
 	}
-
 	.retrie-center .el-button{
 		margin-top: 30px;
 		width: 333px;

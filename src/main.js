@@ -33,14 +33,13 @@ router.beforeEach((to,from,next) => {
 			}
 		}
 	} else {
-
 		if(whiteList.indexOf(to.path) !== -1){
 			next()
 		}else{
       ElementUI.Message({
         showClose: true,
-        message: '请先登录',
-        type: 'warning'
+        message: '请登录',
+        type: 'success'
       });			
 			next('/login');
 		}

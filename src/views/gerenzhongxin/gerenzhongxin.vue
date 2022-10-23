@@ -37,7 +37,6 @@
 			      </el-dropdown>
 			      <span>王小虎</span>
 			    </el-header>
-			    
 			    <el-main>
 		        <transition name="fade" mode="out-in">
 		            <router-view :key="key"></router-view>

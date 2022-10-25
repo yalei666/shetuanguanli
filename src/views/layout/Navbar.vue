@@ -225,7 +225,7 @@ ul li {
 .el-menu{
 	background-color: transparent !important;
 }
-.is-active{
+.head-juzhong .is-active{
 	font-weight:600;
 }
 .el-menu--horizontal>.el-menu-item,.el-menu--horizontal>.el-submenu .el-submenu__title{

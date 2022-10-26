@@ -2,7 +2,7 @@
 	<div id="gerenzhongxin">
 		<div class="gerenzhongxin_container">
 			<el-container style=" border: 1px solid #eee">
-			  <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+			  <el-aside width="200px" style="background-color: rgb(238, 241, 246); min-height:700px;">
 			  	<div class="user_info" style="text-align:center">
 						<div class="userimg_container" >
 							<img class="user_img" src="../../assets/img/shelian.png">
@@ -13,20 +13,20 @@
 			  	</div>
 			  	<el-divider></el-divider>
 			    <el-menu>
-	          <el-menu-item index="1-1">
-	          	<i class="el-icon-message"></i>
-					  	<router-link to="/gerenzhongxin/check/myshetuanapply" style="margin-left:-2px">
-					  		 我的消息
-					  	</router-link>
-	        	</el-menu-item>
+			    	<router-link to="/gerenzhongxin/check/gerenxiaoxi" style="margin-left:-2px">
+		          <el-menu-item index="1-1">
+		          	<i class="el-icon-message"></i>
+						  		 我的消息
+		        	</el-menu-item>
+	        	</router-link>
 			      <el-submenu index="2">
 			        <template slot="title"><i class="el-icon-message"></i>社团事务</template>
 			        <el-menu-item-group>
-			          <el-menu-item index="2-1">
-							  	<router-link to="/gerenzhongxin/check/myshetuanapply">
-							  		 我的社团申请
-							  	</router-link>
-			        	</el-menu-item>
+						  	<router-link to="/gerenzhongxin/check/myshetuanapply">  	
+				          <el-menu-item index="2-1">
+								 		我的社团申请	
+				        	</el-menu-item>
+			        	</router-link>
 			          <el-menu-item index="2-2">我加入的社团</el-menu-item>
 			        </el-menu-item-group>
 			      </el-submenu>
@@ -40,22 +40,11 @@
 			    </el-menu>
 			  </el-aside>
 			  <el-container>
-			    <el-header style="text-align: right; font-size: 12px">
-			      <el-dropdown>
-			        <i class="el-icon-setting" style="margin-right: 15px"></i>
-			        <el-dropdown-menu slot="dropdown">
-			          <el-dropdown-item>查看</el-dropdown-item>
-			          <el-dropdown-item>新增</el-dropdown-item>
-			          <el-dropdown-item>删除</el-dropdown-item>
-			        </el-dropdown-menu>
-			      </el-dropdown>
-			      <span>王小虎</span>
-			    </el-header>
-			    <el-main>
+
 		        <transition name="fade" mode="out-in">
 		            <router-view :key="key"></router-view>
 		        </transition>				    	
-			    </el-main>
+			    
 			  </el-container>
 			</el-container>						
 		</div>		
@@ -81,6 +70,9 @@
 			...mapGetters(
 				{userInfo:'userInfo'}
 			)      
+    },
+    mounted(){
+
     }		
 	}	
 </script>
@@ -136,5 +128,8 @@
   	width:72px;
   	height:72px;
   	border-radius:36px;
+  }
+  .el-header{
+  	background-color:#fff;
   }
 </style>

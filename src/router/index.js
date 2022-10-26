@@ -10,6 +10,7 @@ import Wanshanxinxi from '../views/wanshanxinxi/wanshanxinxi';
 import shetuanxiangqing from '../components/shetuanxiangqing/shetuanxiangqing';
 import gerenzhongxin from '../views/gerenzhongxin/gerenzhongxin';
 import myshetuanapply from '../views/myshetuanapply/myshetuanapply';
+import gerenxiaoxi from '../views/gerenxiaoxi/gerenxiaoxi';
 
 
 Vue.use(VueRouter)
@@ -66,7 +67,8 @@ const routes = [
         component: gerenzhongxin, 
         name: '个人中心',
         children:[
-          {path: 'myshetuanapply', component: myshetuanapply, name: '我的社团申请'}            
+          {path: 'myshetuanapply', component: myshetuanapply, name: '我的社团申请'},            
+          {path: 'gerenxiaoxi', component: gerenxiaoxi, name: '我的消息'}            
           
         ]
       },

@@ -9,31 +9,31 @@
 			<div class="nav">
 				<el-menu 
 					:default-active="activeIndex" 
-					class="el-menu-demo" 
+					class="el-menu" 
 					mode="horizontal" 
 					@select="handleSelect"
 					background-color="#ffe300"
 					text-color="#282828">
-				  <el-menu-item index="/index/index">
-				  	<router-link to="/index/index">
-				  		 社联首页
-				  	</router-link>				  
-					</el-menu-item>
-				  <el-menu-item index="/faxian/shetuancardyemian">
-				  	<router-link to="/faxian/shetuancardyemian">
-				  		发现社团
-				  	</router-link>
-				  </el-menu-item>
-				  <el-menu-item index="/faxian/huodongcardyemian">
-				  	<router-link to="/faxian/huodongcardyemian">
-				  		 发现活动
-				  	</router-link>	
-				  </el-menu-item>
-				  <el-menu-item index="/gerenzhongxin/check">
-				  	<router-link to="/gerenzhongxin/check">
-				  		 个人中心
-				  	</router-link>	
-				  </el-menu-item>				  
+					<router-link to="/index/index">
+					  <el-menu-item index="/index/index">
+					  		 社联首页		  
+						</el-menu-item>
+					</router-link>
+					<router-link to="/faxian/shetuancardyemian">
+					  <el-menu-item index="/faxian/shetuancardyemian">
+					  		发现社团
+					  </el-menu-item>
+				  </router-link>
+				  <router-link to="/faxian/huodongcardyemian">
+					  <el-menu-item index="/faxian/huodongcardyemian">
+					  		 发现活动
+					  </el-menu-item>
+				  </router-link>	
+				  <router-link to="/gerenzhongxin/check">
+					  <el-menu-item index="/gerenzhongxin/check">
+					  		 个人中心
+					  </el-menu-item>	
+				  </router-link>			  
 				</el-menu>															
 			</div>
 			<div class="userinfo">
@@ -115,6 +115,9 @@
 	};	
 </script>
 <style type="text/css">
+.nav .el-menu a {
+	float: left;
+}
 .touxiangcontent ul li{
 	cursor: pointer;
 }
@@ -233,10 +236,22 @@ ul li {
 	line-height: 54px !important;
 }
 .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
-	background-color: #ffe300 !important;
+	background-color: black !important;
 }
 .el-menu--horizontal>.el-menu-item{
 	border-bottom: 0px  !important;
 }
 
+  .head-juzhong .el-submenu__title:hover{
+  	background-color :black !important;
+  }
+  .head-juzhong .el-menu-item:focus,.head-juzhong .el-menu-item:hover{
+		background-color :black !important;  	
+		color: #ffe300 !important;
+  }
+  .head-juzhong .el-menu-item.is-active{
+  	color:#ffe300 !important;
+  	background-color :black !important;
+  	font-weight:600;
+  }
 </style>

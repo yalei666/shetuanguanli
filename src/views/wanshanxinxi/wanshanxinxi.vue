@@ -38,7 +38,7 @@
 									</el-upload>									
 								</el-form-item>
 								<el-form-item label="真实姓名">
-									<el-input v-model="xuehaoform.xingming"></el-input>	
+									<el-input v-model="xuehaoform.xingming" style="width:220px;"></el-input>	
 								</el-form-item>
 								<el-form-item label="班级">
 							  <el-cascader
@@ -326,7 +326,7 @@
 	}
 	.retrie-center .el-button{
 		margin-top: 30px;
-		width: 333px;
+		width: 303px;
 		background:#f4f4f4;
 	}
 	.retrie-center .el-input__inner{
